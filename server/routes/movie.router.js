@@ -3,8 +3,7 @@ const router = express.Router();
 const pool = require('../modules/pool')
 
 router.get('/', (req, res) => {
-
-  const query = `SELECT * FROM movies ORDER BY "title" ASC`;
+const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
     .then( result => {
       res.send(result.rows);
@@ -14,6 +13,20 @@ router.get('/', (req, res) => {
       res.sendStatus(500)
     })
 
+});
+
+router.get('/:id', (req, res) => {
+  const idToGet = req.params.id;
+  const query = `SELECT * FROM movies WHERE id=$1`;
+  pool.query(query, [idToGet])
+  .then( (result) => {
+    console.log(`Movie with id ${idToGet}`, result.rows);
+    res.send(result.rows);
+  })
+  .catch( (error) => {
+    console.log(`Error making database query ${query}`, error);
+    res.sendStatus(500);
+  })
 });
 
 router.post('/', (req, res) => {
