@@ -16,11 +16,13 @@ const query = `SELECT * FROM movies ORDER BY "title" ASC`;
 });
 
 router.get('/:id', (req, res) => {
-  const idToGet = req.params.id;
-  const query = `SELECT * FROM movies WHERE id=$1`;
-  pool.query(query, [idToGet])
+  const id = req.params.id;
+  const query = `
+  SELECT * FROM movies 
+  WHERE id=$1`;
+  pool.query(query, [id])
   .then( (result) => {
-    console.log(`Movie with id ${idToGet}`, result.rows);
+    console.log(`Movie with id ${id}`, result.rows);
     res.send(result.rows);
   })
   .catch( (error) => {

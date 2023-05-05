@@ -16,8 +16,10 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
 }
 
+
+ // get all movies from the DB
 function* fetchAllMovies() {
-    // get all movies from the DB
+   
     try {
         const movies = yield axios.get('/api/movie');
         console.log('get all:', movies.data);
