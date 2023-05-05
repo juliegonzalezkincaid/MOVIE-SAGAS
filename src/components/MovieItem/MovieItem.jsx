@@ -3,7 +3,7 @@ import { useHistory } from 'react-router-dom'
 
 
 // DO NOT MODIFY THIS FILE FOR BASE MODE!
-//movie item takes in the parameter movie
+//movieItem takes in the parameter movie
 function MovieItem({ movie }) {
     
     const history = useHistory() 
