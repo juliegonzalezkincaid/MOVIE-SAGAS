@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const pool = require('../modules/pool')
 
+//list of movie objects
 router.get('/', (req, res) => {
 const query = `SELECT * FROM movies ORDER BY "title" ASC`;
   pool.query(query)
@@ -15,6 +16,7 @@ const query = `SELECT * FROM movies ORDER BY "title" ASC`;
 
 });
 
+// select movie by id 
 router.get('/:id', (req, res) => {
   const id = req.params.id;
   const query = `
@@ -28,6 +30,23 @@ router.get('/:id', (req, res) => {
   .catch( (error) => {
     console.log(`Error making database query ${query}`, error);
     res.sendStatus(500);
+  })
+});
+
+// GET movie details
+router.get('/details', (req, res)=>{
+  const query=
+  `SELECT * FROM movies
+  JOIN movies_genres
+  ON movies.id = movies_genres.movie_id
+  JOIN genres
+  ON movies_genres.genre_id = genres.id
+  WHERE movie_id=$1`;
+  pool.query(query, [req.query.id])//sends SQL w movie ID parameter
+  .then((result)=>{
+  res.send(result.rows);// sends results back to client 
+  }).catch((error)=> {
+    console.log(`Error making in routerget details`, error)
   })
 });
 

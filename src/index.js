@@ -44,7 +44,7 @@ function* fetchMovie(action) {
     }
 }
 
-function* fetchMovieGenres(action){
+function* fetchMovieGenres(){
     try
     {
         const genres= yield axios.get(`/api/genres`);
@@ -60,6 +60,7 @@ function* fetchMovieGenres(action){
 const sagaMiddleware = createSagaMiddleware();
 
 // Used to store movies returned from the server
+//* movies REDUCER
 const movies = (state = [], action) => {
     switch (action.type) {
         case 'SET_MOVIES':
@@ -70,6 +71,7 @@ const movies = (state = [], action) => {
 }
 
 // Used to store the movie genres
+//* genres REDUCER
 const genres = (state = [], action) => {
     switch (action.type) {
         case 'SET_GENRES':
@@ -78,7 +80,7 @@ const genres = (state = [], action) => {
             return state;
     }
 }
-//store movieItem
+//* store movieItem REDUCER
 const movieItem = (state = {}, action) => {
     switch (action.type) {
         case 'SET_MOVIE':

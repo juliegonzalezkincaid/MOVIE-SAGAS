@@ -8,14 +8,14 @@ function Details() {
                // hooks
 const dispatch = useDispatch();// sends to the store
 const history= useHistory ();// goes back to home screen
-const movie = useSelector((store) => store.movieItem);
+const movie = useSelector((store) => store.movieItem);//stores item
 const genres = useSelector((store) => store.genres);
-const {id} = useParams(); 
+const {id} = useParams(); // gets id from url
 
 const home= ()=> {
     history.push('/');
 }
-// dispatch sends mesage to store to fetch detail of the movie using its id
+// dispatch sends mesage to store to fetch details of the movie using its id
 useEffect(()=>{// runs this code
     dispatch({ 
         type:'FETCH_MOVIE',
@@ -31,7 +31,9 @@ useEffect(() => {
      });
 },[movie])
 
-
+const homePage =() =>{
+    history.push('/')
+};
 
     return(
 
@@ -41,9 +43,10 @@ useEffect(() => {
     alt={movie.title}
     />
     <button
-        onClick= {home}> 
+        onClick= {homePage}> 
         Home Page
     </button>
+
     <h2>{movie.title}</h2>
     {genres.map((genres)=>(
     <span key={genres.id}>{genres.name}</span>
