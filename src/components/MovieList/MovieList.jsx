@@ -19,6 +19,13 @@ function MovieList() {
         dispatch({ type: 'FETCH_MOVIES' });
     }, []); //[] = will only run once, when the component mounts
 
+    const movieBtn = (movie) => {
+        dispatch({ type: 'SET_MOVIE_BTN', payload: movie});
+        history.push('/details')
+    }
+
+
+
     return (
         <main>
             {/* <h1>MovieList</h1> */}
@@ -27,12 +34,15 @@ function MovieList() {
                     return (
                         <div
                             key={movie.id} >
-                            <h3>
-                                {movie.title}</h3>
-                            <img
+                            {/* <h3>
+                                {movie.title}</h3> */}
+                            {/* <img
+                                onClick={()=> movieBtn(movie)}
                                 src={movie.poster}
-                                alt={movie.title} />
-                                <MovieItem key={movie.id} movie={movie}/>
+                                alt={movie.title} /> */}
+                                <MovieItem 
+                                key={movie.id} movie={movie}/>
+                             
                         </div>
                     );
                 })}

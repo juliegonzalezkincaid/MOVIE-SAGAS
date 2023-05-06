@@ -19,7 +19,7 @@ function App() {
 
         {/* Details Page */}
         <Route 
-            path="/details/:id">
+            exact path="/details/:id">
             <Details />
         </Route>
           
@@ -28,7 +28,6 @@ function App() {
             path="/addMovie/:id">
             <AddMovie />
         </Route> */}
-
 
       </Router>
     </div>

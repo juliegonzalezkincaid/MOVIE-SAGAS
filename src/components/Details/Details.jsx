@@ -12,7 +12,7 @@ const movie = useSelector((store) => store.movieItem);//stores item
 const genres = useSelector((store) => store.genres);
 const {id} = useParams(); // gets id from url
 
-const home= ()=> {
+const homePage= ()=> {
     history.push('/');
 }
 // dispatch sends mesage to store to fetch details of the movie using its id
@@ -31,9 +31,7 @@ useEffect(() => {
      });
 },[movie])
 
-const homePage =() =>{
-    history.push('/')
-};
+
 
     return(
 
@@ -49,7 +47,7 @@ const homePage =() =>{
 
     <h2>{movie.title}</h2>
     {genres.map((genres)=>(
-    <span key={genres.id}>{genres.name}</span>
+    <span >key={genres.id}{genres.name}</span>
     ))}
         </>
     )
