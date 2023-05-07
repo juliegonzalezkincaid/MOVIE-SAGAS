@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom'
 
 
@@ -20,7 +20,7 @@ return (
     <h3>{movie.title}</h3>
 
     <img
-    onClick= {()=>setMovie (movie)}
+    onClick= {setMovie}
     src={movie.poster}
     alt={movie.title}
     />
