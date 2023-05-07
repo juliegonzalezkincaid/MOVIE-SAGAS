@@ -14,7 +14,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    yield takeEvery('FETCH_MOVIE', fetchMovie);
+    // yield takeEvery('FETCH_MOVIE', fetchMovie);
     yield takeEvery('FETCH_MOVIE_GENRES', fetchMovieGenres);
 }
 
@@ -32,35 +32,46 @@ function* fetchAllMovies() {
     }
         
 }
-function* fetchMovie(action) {
-    try 
-    { 
-        //yield pauses the execution of the function till the results of the axios.get is returned 
+// function* fetchMovie(action) {
+//     try 
+//     {  
+//         let id= action.payload
+//         const eachMovie = yield axios.get(`/api/movie/${id}`);
+//         yield put({ type: "SET_MOVIE", payload: eachMovie.data });
+//     } catch (error) {
+//         console.log ("GET error eachMovie", error);
+//     }
+// }
+//yield pauses the execution of the function till the results of the axios.get is returned 
         //action.payload= ID parameter 
         //action type is SET MOVIE and the payload is the data property of eachMovie
-        let id= action.payload
-        const eachMovie = yield axios.get(`/api/movie/${id}`);
-        yield put({ type: "SET_MOVIE", payload: eachMovie.data });
-    } catch (error) {
-        console.log ("GET error eachMovie", error);
+// function* fetchMovieGenres(action){
+//     try
+//     {
+//         const movieId = action.payload;
+//         console.log (movieId)
+//         const genres= yield axios.get(`/api/genre/${movieId}`);
+//         const response= genres.data.map(genres => {
+//             return { name: genres.name, value: genres.id }
+//         })
+//         yield put ({ type: "SET_GENRES", payload: genres.data });
+//     } catch(error){
+//         console.log("PUT error genres",error);
+//     }
+//     }
+function* fetchMovieGenres() {
+    // get all genres from the DB
+    try {
+        const genres = yield axios.get('/api/genre');
+        const genresUsable = genres.data.map(genre => {
+            return { name: genre.name, value: genre.id }
+        })
+        console.log(genresUsable)
+        yield put({ type: 'SET_GENRES', payload: genresUsable });
+    } catch {
+        console.log('Get All Genres: Generator Error');
     }
 }
-
-function* fetchMovieGenres(action){
-    try
-    {
-        const movieId = action.payload;
-        console.log (movieId)
-        const response= yield axios.get(`/api/genre/${movieId}`);
-        // const response= genres.data.map(genres => {
-        //     return { name: genres.name, value: genres.id }
-        // })
-        yield put ({ type: "SET_GENRES", payload: response.data });
-    } catch(error){
-        console.log("PUT error genres",error);
-    }
-    }
-
 
 
 // Create sagaMiddleware

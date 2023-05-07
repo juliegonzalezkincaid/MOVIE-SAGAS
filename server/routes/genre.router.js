@@ -3,23 +3,19 @@ const router = express.Router();
 const pool = require('../modules/pool')
 
 
-router.get('/', (req, res) => {
+router.get('/:movieId', (req, res) => {
   
-  const movieId = req.params.id;
-  if (!movieId) {
-    console.log('Movie id is undefined');
-    res.sendStatus(400);
-    return;
-  }
+  const movieId = req.params.movieid;
+  
 
   // const movieId = req.params.id;
-  const queryText = `
-    SELECT genres.id, genres.name
-    FROM genres
-    JOIN movies_genres ON genres.id = movies_genres.genre_id
-    WHERE movies_genres.movie_id = $1;
-  `;
-  pool.query(queryText, [movieId])
+  const query = `
+  SELECT "genres".id, "genres".name
+  FROM "movies_genres"
+  JOIN "genres" ON "genres".id = "movies_genres".genre_id
+  WHERE "movies_genres".movie_id = $1;
+`;
+  pool.query(query, [movieId])
     .then(result => {
       res.send(result.rows);
     })

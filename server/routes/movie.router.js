@@ -17,39 +17,41 @@ const query = `SELECT * FROM movies ORDER BY "title" ASC`;
 });
 
 // select movie by id 
-router.get('/:id', (req, res) => {
-  const id = req.params.id;
+
+router.get("/:id", (req, res) => {
+  let id = req.params.id;
+  // console.log("GET from movie; id == ", id);
   const query = `
   SELECT * FROM movies 
-  WHERE id=$1`;
-  pool.query(query, [id])
-  .then( (result) => {
-    console.log(`Movie with id ${id}`, result.rows);
-    res.send(result.rows);
-  })
-  .catch( (error) => {
-    console.log(`Error making database query ${query}`, error);
-    res.sendStatus(500);
-  })
+  WHERE ID = ${id}
+  ORDER BY "title" DESC;`;
+  pool
+    .query(query)
+    .then((result) => {
+      res.send(result.rows);
+    })
+    .catch((err) => {
+      console.log("ERROR: Get all movies", err);
+      res.sendStatus(500);
+    });
 });
-
 // GET movie details
-router.get('/details', (req, res)=>{
-  const movieId = req.query.id
-  const queryText=
-  `SELECT * FROM movies
-  JOIN movies_genres
-  ON movies.id = movies_genres.movie_id
-  JOIN genres
-  ON movies_genres.genre_id = genres.id
-  WHERE movie_id=$1`;
-  pool.query(queryText, [movieId])//sends SQL w movie ID parameter
-  .then((result)=>{
-  res.send(result.rows);// sends results back to client 
-  }).catch((error)=> {
-    console.log(`Error making in routerget details`, error)
-  })
-});
+// router.get('/details', (req, res)=>{
+//   const movieId = req.query.id
+//   const queryText=
+//   `SELECT * FROM movies
+//   JOIN movies_genres
+//   ON movies.id = movies_genres.movie_id
+//   JOIN genres
+//   ON movies_genres.genre_id = genres.id
+//   WHERE movie_id=$1`;
+//   pool.query(queryText, [movieId])//sends SQL w movie ID parameter
+//   .then((result)=>{
+//   res.send(result.rows);// sends results back to client 
+//   }).catch((error)=> {
+//     console.log(`Error making in routerget details`, error)
+//   })
+// });
 
 router.post('/', (req, res) => {
   console.log(req.body);
