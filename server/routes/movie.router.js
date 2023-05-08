@@ -35,23 +35,7 @@ router.get("/:id", (req, res) => {
       res.sendStatus(500);
     });
 });
-// GET movie details
-// router.get('/details', (req, res)=>{
-//   const movieId = req.query.id
-//   const queryText=
-//   `SELECT * FROM movies
-//   JOIN movies_genres
-//   ON movies.id = movies_genres.movie_id
-//   JOIN genres
-//   ON movies_genres.genre_id = genres.id
-//   WHERE movie_id=$1`;
-//   pool.query(queryText, [movieId])//sends SQL w movie ID parameter
-//   .then((result)=>{
-//   res.send(result.rows);// sends results back to client 
-//   }).catch((error)=> {
-//     console.log(`Error making in routerget details`, error)
-//   })
-// });
+
 
 router.post('/', (req, res) => {
   console.log(req.body);
@@ -91,3 +75,21 @@ router.post('/', (req, res) => {
 })
 
 module.exports = router;
+
+// GET movie details
+// router.get('/details', (req, res)=>{
+//   const movieId = req.query.id
+//   const queryText=
+//   `SELECT * FROM movies
+//   JOIN movies_genres
+//   ON movies.id = movies_genres.movie_id
+//   JOIN genres
+//   ON movies_genres.genre_id = genres.id
+//   WHERE movie_id=$1`;
+//   pool.query(queryText, [movieId])//sends SQL w movie ID parameter
+//   .then((result)=>{
+//   res.send(result.rows);// sends results back to client 
+//   }).catch((error)=> {
+//     console.log(`Error making in routerget details`, error)
+//   })
+// });

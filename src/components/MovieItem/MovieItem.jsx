@@ -10,19 +10,26 @@ function MovieItem({ movie }) {
     //moves to a different page when the user clicks the movie poster
   
     //sets url to a new value when user clicks on a movie poster
-    const setMovie= (movie) => {
-        history.push(`details/${movie.id}`)
-    }
+    // const setMovie= (movie) => {
+    //     history.push(`details/${movie.id}`)
+    // }
 
+    const movieBtn = (id) => {
+        // event.preventDefault();
+        console.log(id)
+        // dispatch({ type: 'SET_MOVIE_BTN', payload: movie });
+        history.push(`/details/${id}`)
+    }
 
 return (
     <>
     <h3>{movie.title}</h3>
 
     <img
-    onClick= {setMovie}
+    onClick={() => movieBtn(movie.id)}
     src={movie.poster}
     alt={movie.title}
+    
     />
     </>
 )

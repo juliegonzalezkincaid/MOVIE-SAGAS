@@ -20,12 +20,7 @@ function MovieList() {
     }, []);
     //[] = will only run once, when the component mounts
 
-    const movieBtn = (event, movie) => {
-        event.preventDefault();
-        dispatch({ type: 'SET_MOVIE_BTN', payload: movie });
-        history.push('/details')
-    }
-
+    
 
 
     return (
@@ -46,15 +41,16 @@ function MovieList() {
                 {movies.map(movie => {
                     return (
                         <div
+                      
                             key={movie.id} >
 
                             <MovieItem
                                 key={movie.id} movie={movie}
-                                onClick={(event) => movieBtn(event, movie)}
+                                
 
                             ></MovieItem>
 
-                            <p>{movies.description}</p>
+                            
                         </div>
                     );
                 })}

@@ -5,10 +5,8 @@ const pool = require('../modules/pool')
 
 router.get('/:movieId', (req, res) => {
   
-  const movieId = req.params.movieid;
+  const movieId = req.params.movieId;
   
-
-  // const movieId = req.params.id;
   const query = `
   SELECT "genres".id, "genres".name
   FROM "movies_genres"
@@ -26,7 +24,10 @@ router.get('/:movieId', (req, res) => {
 });
 
   
-  // Add query to get all genres
+module.exports = router;
+
+
+// Add query to get all genres
   //SQL to retrieve all frow from the genres table in database
 //   const query = 
 //   `SELECT * FROM genres 
@@ -43,7 +44,3 @@ router.get('/:movieId', (req, res) => {
 //   })
   
 // });
-
-
-
-module.exports = router;

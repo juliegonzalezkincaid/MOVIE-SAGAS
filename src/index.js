@@ -14,7 +14,7 @@ import axios from 'axios';
 // Create the rootSaga generator function
 function* rootSaga() {
     yield takeEvery('FETCH_MOVIES', fetchAllMovies);
-    // yield takeEvery('FETCH_MOVIE', fetchMovie);
+    yield takeEvery('FETCH_MOVIE', fetchMovie);
     yield takeEvery('FETCH_MOVIE_GENRES', fetchMovieGenres);
 }
 
@@ -32,46 +32,51 @@ function* fetchAllMovies() {
     }
         
 }
-// function* fetchMovie(action) {
+function* fetchMovie(action) {
+    
+        try {
+          let id = action.payload;
+          const eachMovie = yield axios.get(`/api/movie/${id}`);
+          yield put({ type: "SET_MOVIE", payload: eachMovie.data });
+        } catch (error) {
+          console.log("GET error single movie", error);
+        }
+      }
 //     try 
 //     {  
-//         let id= action.payload
-//         const eachMovie = yield axios.get(`/api/movie/${id}`);
-//         yield put({ type: "SET_MOVIE", payload: eachMovie.data });
+        
+//         const movie = yield axios.get(`/api/movie/details?id=${action.payload}`);
+//         const eachMovie = movie.data.map(genre => {
+//             return { name: genre.name, value: genre.genre_id }
+//         })
+//         yield put({ type: 'SET_MOVIE', payload: { movie: movie.data[0], genres: eachMovie } });
+//     } catch {
+//         console.log('Get This Movie: Generator Error');
+//     }
+// }
+//let id= action.payload
+//         const details = yield axios.get(`/api/movie${id}`);
+//         yield put({ type: "SET_MOVIE", payload: details.data });
 //     } catch (error) {
 //         console.log ("GET error eachMovie", error);
 //     }
 // }
 //yield pauses the execution of the function till the results of the axios.get is returned 
-        //action.payload= ID parameter 
-        //action type is SET MOVIE and the payload is the data property of eachMovie
-// function* fetchMovieGenres(action){
-//     try
-//     {
-//         const movieId = action.payload;
-//         console.log (movieId)
-//         const genres= yield axios.get(`/api/genre/${movieId}`);
-//         const response= genres.data.map(genres => {
-//             return { name: genres.name, value: genres.id }
-//         })
-//         yield put ({ type: "SET_GENRES", payload: genres.data });
-//     } catch(error){
-//         console.log("PUT error genres",error);
-//     }
-//     }
-function* fetchMovieGenres() {
+        // action.payload= ID parameter 
+        // action type is SET MOVIE and the payload is the data property of eachMovie
+
+function* fetchMovieGenres(action) {
     // get all genres from the DB
     try {
-        const genres = yield axios.get('/api/genre');
-        const genresUsable = genres.data.map(genre => {
-            return { name: genre.name, value: genre.id }
-        })
-        console.log(genresUsable)
-        yield put({ type: 'SET_GENRES', payload: genresUsable });
-    } catch {
-        console.log('Get All Genres: Generator Error');
+        
+        const movieId = action.payload;
+        const response = yield axios.get(`/api/genre/${movieId}`);
+        yield put({ type: "SET_GENRES", payload: response.data });
+      } catch (error) {
+        console.log("Error in fetchMovieGenres", error);
+      }
     }
-}
+    
 
 
 // Create sagaMiddleware
@@ -99,14 +104,27 @@ const genres = (state = [], action) => {
     }
 }
 //* store movieItem REDUCER
-const movieItem = (state = {}, action) => {
+const movieItem= (state =[], action) => {
     switch (action.type) {
-        case 'SET_MOVIE':
-        return action.payload;
+        case "SET_MOVIE":
+        
+          if (action.payload.length > 0) {
+           
+            return action.payload[0];
+          }
+          return undefined;
         default:
-            return state;
-    }
-}
+          return state;
+      }
+    };
+
+//     switch (action.type) {
+//         case 'SET_MOVIE':
+//         return action.payload;
+//         default:
+//             return state;
+//     }
+// }
 
 // Create one store that all components can use
 const storeInstance = createStore(
