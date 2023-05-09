@@ -40,7 +40,7 @@ Material UI
 Thanks to Chris Black, Mar McCarthy, and Prime Digital Academy for teaching me the skills required to make this application!
 
 ## Support 
-If you have suggestions or issues, please email me at leighh.jgonzalezkincaid@gmail.com
+If you have suggestions or issues, please email me at jgonzalezkincaid@gmail.com
 
 Thanks for viewing!
 
