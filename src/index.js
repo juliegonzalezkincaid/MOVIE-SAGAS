@@ -18,7 +18,6 @@ function* rootSaga() {
     yield takeEvery('FETCH_MOVIE_GENRES', fetchMovieGenres);
 }
 
-
  // get all movies from the DB
 function* fetchAllMovies() {
    
@@ -42,33 +41,14 @@ function* fetchMovie(action) {
           console.log("GET error single movie", error);
         }
       }
-//     try 
-//     {  
-        
-//         const movie = yield axios.get(`/api/movie/details?id=${action.payload}`);
-//         const eachMovie = movie.data.map(genre => {
-//             return { name: genre.name, value: genre.genre_id }
-//         })
-//         yield put({ type: 'SET_MOVIE', payload: { movie: movie.data[0], genres: eachMovie } });
-//     } catch {
-//         console.log('Get This Movie: Generator Error');
-//     }
-// }
-//let id= action.payload
-//         const details = yield axios.get(`/api/movie${id}`);
-//         yield put({ type: "SET_MOVIE", payload: details.data });
-//     } catch (error) {
-//         console.log ("GET error eachMovie", error);
-//     }
-// }
-//yield pauses the execution of the function till the results of the axios.get is returned 
-        // action.payload= ID parameter 
-        // action type is SET MOVIE and the payload is the data property of eachMovie
+
+//*yield pauses the execution of the function till the results of the axios.get is returned 
+// *action.payload= ID parameter 
+//*action type is SET MOVIE and the payload is the data property of eachMovie
 
 function* fetchMovieGenres(action) {
     // get all genres from the DB
     try {
-        
         const movieId = action.payload;
         const response = yield axios.get(`/api/genre/${movieId}`);
         yield put({ type: "SET_GENRES", payload: response.data });
@@ -77,8 +57,6 @@ function* fetchMovieGenres(action) {
       }
     }
     
-
-
 // Create sagaMiddleware
 const sagaMiddleware = createSagaMiddleware();
 
@@ -92,7 +70,14 @@ const movies = (state = [], action) => {
             return state;
     }
 }
-
+const ratingReducer = (state = 0, action) => {
+    switch (action.type) {
+      case 'SET_RATING':
+        return action.payload;
+      default:
+        return state;
+    }
+  };
 // Used to store the movie genres
 //* genres REDUCER
 const genres = (state = [], action) => {
@@ -117,21 +102,13 @@ const movieItem= (state =[], action) => {
           return state;
       }
     };
-
-//     switch (action.type) {
-//         case 'SET_MOVIE':
-//         return action.payload;
-//         default:
-//             return state;
-//     }
-// }
-
 // Create one store that all components can use
 const storeInstance = createStore(
     combineReducers({
         movies,
         genres,
         movieItem,
+        rating: ratingReducer 
     }),
     // Add sagaMiddleware to our store
     applyMiddleware(sagaMiddleware, logger),
@@ -148,3 +125,34 @@ root.render(
         </Provider>
     </React.StrictMode>
 );
+        //* stuff that didnt work......
+//     try 
+//     {  
+        
+//         const movie = yield axios.get(`/api/movie/details?id=${action.payload}`);
+//         const eachMovie = movie.data.map(genre => {
+//             return { name: genre.name, value: genre.genre_id }
+//         })
+//         yield put({ type: 'SET_MOVIE', payload: { movie: movie.data[0], genres: eachMovie } });
+//     } catch {
+//         console.log('Get This Movie: Generator Error');
+//     }
+// }
+//let id= action.payload
+//         const details = yield axios.get(`/api/movie${id}`);
+//         yield put({ type: "SET_MOVIE", payload: details.data });
+//     } catch (error) {
+//         console.log ("GET error eachMovie", error);
+//     }
+// }
+
+
+
+//     switch (action.type) {
+//         case 'SET_MOVIE':
+//         return action.payload;
+//         default:
+//             return state;
+//     }
+// }
+

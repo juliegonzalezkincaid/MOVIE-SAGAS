@@ -1,0 +1,7 @@
+.button {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    color:#1BFAE7 ;
+    
+}

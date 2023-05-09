@@ -3,7 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import './MovieList.css'
 import { useHistory } from 'react-router-dom';
 import MovieItem from '../MovieItem/MovieItem.jsx';
-
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Container from '@mui/material/Container';
 
 function MovieList() {
     //hooks
@@ -29,15 +31,7 @@ function MovieList() {
 
             {/* <h1>MovieList</h1> */}
             <section className="movies">
-                {genres.map((genre) => (
-                    <span
-                        key={genre.id}>
-                        {genre.name}
-                    </span>
-                ))}
-
-
-
+                
                 {movies.map(movie => {
                     return (
                         <div
@@ -52,6 +46,7 @@ function MovieList() {
 
                             
                         </div>
+                        
                     );
                 })}
             </section>
