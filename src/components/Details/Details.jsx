@@ -5,13 +5,15 @@ import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
+
 function MovieRating(props) {
     const dispatch = useDispatch();
   
     const handleClick = (value) => {
       dispatch({ type: 'SET_RATING', payload: value });
     };
-  
+    const rating = useSelector((store) => store.rating);
+
     useEffect(() => {
       const storedRating = localStorage.getItem('rating');
       if (storedRating) {
@@ -20,8 +22,8 @@ function MovieRating(props) {
     }, []);
   
     useEffect(() => {
-      localStorage.setItem('rating', props.value);
-    }, [props.value]);
+      localStorage.setItem('rating', rating);
+    }, [rating]);
   
     // rest of the code
   }
