@@ -5,8 +5,9 @@ Movie Sagas!
 Movie Sagas us an application that allows users to see the genre and description of each movie by clicking on a movie poster.
 
 ## Preview  
-![Homepage screenshot](images/homepage.png)
-![Description screenshot](images/description.png)
+![Homepage screenshot](public/images/homepage.png)
+![Description screenshot](public/images/description.png)
+
 ## Installation and Setup 
 1. Start postgres
 2. Create a database named `saga_movies_weekend`
