@@ -1,5 +1,4 @@
-# Project Name
-Movie Sagas!
+# Movie Sagas!
 
 ## Description
 Movie Sagas us an application that allows users to see the genre and description of each movie by clicking on a movie poster.
