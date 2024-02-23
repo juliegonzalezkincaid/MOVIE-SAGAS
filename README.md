@@ -36,7 +36,7 @@ Postman
 GitHub
 Material UI
 
-## Acknoledgement
+## Acknowledgement
 Thanks to Chris Black, Mar McCarthy, and Prime Digital Academy for teaching me the skills required to make this application!
 
 ## Support 
